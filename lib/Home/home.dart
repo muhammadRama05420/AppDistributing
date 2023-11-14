@@ -1,0 +1,103 @@
+import 'package:dcourier/Home/tabPengantaran.dart';
+import 'package:dcourier/Home/tabAktif.dart';
+import 'package:dcourier/Home/tabSelesai.dart';
+import 'package:dcourier/bottomNavbar.dart';
+import 'package:dcourier/constant.dart';
+import 'package:flutter/material.dart';
+
+
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  int myIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Pesanan',style: whiteTextStyle.copyWith(fontSize: 40,fontWeight: bold),),
+          backgroundColor: purpleColor,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 88,
+     
+          bottom: const TabBar(
+            unselectedLabelColor: Colors.white,
+            dividerColor: Colors.transparent,
+            labelColor: Color(0xffF44336),
+
+            
+            tabs: <Widget>[
+              Tab(
+                child:Text('Aktif',style: TextStyle(fontSize: 16,fontWeight:FontWeight.w600,),)
+              ),
+              Tab(
+                child:Text('Selesai',style: TextStyle(fontSize: 16,fontWeight:FontWeight.w600,),)
+              ),
+              Tab(
+                child:Text('Pengantaran',style: TextStyle(fontSize: 16,fontWeight:FontWeight.w600,),)
+              ),              
+            ],
+            indicatorColor: Color(0xffF44336),
+          ),
+        ),
+        
+        body: const TabBarView(
+          children: <Widget>[
+            TabAktif(),
+            TabSelesai(),
+            TabPengantaran(),
+          ],
+        ),
+        
+//BOTTOM NAVBAR--------------------------------------------------------------------------
+
+      bottomNavigationBar:BottomNavigationBar(
+        onTap: (index){
+          setState(() {
+              myIndex=index;
+          });       
+        },
+        currentIndex: myIndex,
+
+        elevation: 1,
+        iconSize: 44,
+        type: BottomNavigationBarType.shifting,
+        backgroundColor: Color(0xff2C2A8B),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart_outlined, color: Color(0xffffffff),),
+            backgroundColor: Color(0xff2C2A8B),
+            label: 'Pesanan',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline, color: Color(0xffffffff),),
+            backgroundColor: Color(0xff2C2A8B),
+            label: 'Pesanan Baru',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_outlined, color: Color(0xffffffff),),
+            backgroundColor: Color(0xff2C2A8B),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.portrait_rounded, color: Color(0xffffffff),), 
+            backgroundColor: Color(0xff2C2A8B),
+            label: 'Profile',           
+          ),
+        ],
+      ),
+      ),
+    );
+  }
+}
